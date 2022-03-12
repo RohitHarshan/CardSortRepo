@@ -1,0 +1,40 @@
+﻿<Properties StartupConfiguration="{0D392223-DAF2-4FD3-AE80-9A498ED76505}|Default">
+  <MonoDevelop.Ide.Workbench>
+    <Files>
+      <File FileName="Controllers/CardSortController.cs" Line="60" Column="2" />
+      <File FileName="Models/CardSortProcessor.cs" />
+      <File FileName="Models/Card.cs" />
+      <File FileName="Program.cs" />
+      <File FileName="Properties/launchSettings.json" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="CardSortAPI" expanded="True">
+            <Node name="CardSortAPI" expanded="True">
+              <Node name="Dependencies" expanded="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="CardSortController.cs" selected="True" />
+              </Node>
+              <Node name="Models" expanded="True" />
+              <Node name="Properties" expanded="True" />
+              <Node name="appsettings.json" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.CardSortAPI PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/sujitharshan/Repos/CardSortRepo/CardSortAPI/Controllers/CardSortController.cs" relfile="Controllers/CardSortController.cs" line="28" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
