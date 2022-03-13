@@ -11,50 +11,59 @@ namespace CardSortAPI.Controllers
     [Route("[controller]")]
     public class CardSortController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
         private readonly ILogger<CardSortController> _logger;
 
         public CardSortController(ILogger<CardSortController> logger)
         {
             _logger = logger;
         }
-
+        /// <summary>
+        /// Method to sort cards based on suit and face value
+        /// </summary>
+        /// <param name="cardsList"></param>
+        /// <returns>List<string></string></returns>
         [HttpPost(Name = "SortCards")]
         public List<string> Sort(List<string> cardsList)
         {
-            CardSortProcessor cardSortProcessor = new CardSortProcessor();
-            var finalCardsList = cardsList.Select(x =>
+            try
             {
-                if (x.Contains("T"))
+                CardSortProcessor cardSortProcessor = new CardSortProcessor();
+                if (cardsList != null)
                 {
-                    x = x.Replace("4", "F");
-                    x = x.Replace("2", "W");
-                    return new Card(x[1].ToString(),
-                    x[0].ToString(), cardSortProcessor.SuiteDict, cardSortProcessor.FaceDict);
-                }   
-                else if (x.Length > 2)
-                {
-                    return new Card(x[2].ToString(),
-                 x[0].ToString() + x[1].ToString(), cardSortProcessor.SuiteDict, cardSortProcessor.FaceDict);
+                    var finalCardsList = cardsList.Select(x =>
+                  {
+                      if (x.Contains(Constants.T))
+                      {
+                          x = x.Replace(Constants.FOUR, Constants.F); // replacing 4 to F for removing duplicates
+                          x = x.Replace(Constants.TWO, Constants.W); // replacing 4 to F for removing duplicates
+                          return new Card(x[1].ToString(),
+                            x[0].ToString(), cardSortProcessor.SuiteDict, cardSortProcessor.FaceDict);
+                      }
+                      else if (x.Length > 2) // condition for '10' digit
+                      {
+                          return new Card(x[2].ToString(),
+                       x[0].ToString() + x[1].ToString(), cardSortProcessor.SuiteDict, cardSortProcessor.FaceDict);
+                      }
+                      else
+                      {
+                          return new Card(x[1].ToString(),
+                          x[0].ToString(), cardSortProcessor.SuiteDict, cardSortProcessor.FaceDict);
+                      }
+                  }).ToList();
+
+                    cardSortProcessor.Cards = finalCardsList;
+
+                    var sortedList = cardSortProcessor.Sort();
+                    var responseList = sortedList.Select(x => string.Concat(x.Face.Replace(Constants.F, Constants.FOUR).Replace(Constants.W, Constants.TWO), x.Suite)).ToList();
+
+                    return responseList;
                 }
-                else
-                {
-                    return new Card(x[1].ToString(),
-                    x[0].ToString(), cardSortProcessor.SuiteDict, cardSortProcessor.FaceDict);
-                }
-            }).ToList();
-
-            cardSortProcessor.Cards = finalCardsList;
-
-            var sortedList = cardSortProcessor.Sort();
-            var responseList = sortedList.Select(x => string.Concat(x.face.Replace("F","4").Replace("W","2"), x.suite)).ToList();
-
-            return responseList;
-
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex.Message);
+            }
+            return null;
         }
     }
 }
